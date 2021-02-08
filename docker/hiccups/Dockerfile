@@ -25,9 +25,8 @@ RUN git clone --branch encode https://github.com/theaidenlab/juicer.git
 RUN cd juicer && chmod +x CPU/* CPU/common/*
 
 # Install Juicer tools
-ADD http://s3.amazonaws.com/hicfiles.tc4ga.com/public/juicer/juicer_tools_1.11.09_jcuda.0.8.jar /opt/juicer/CPU/common
-RUN ln -s /opt/juicer/CPU/common/juicer_tools_1.11.09_jcuda.0.8.jar /opt/juicer/CPU/common/juicer_tools.jar
-RUN chmod 666 /opt/juicer/CPU/common/juicer_tools_1.11.09_jcuda.0.8.jar
+ADD juicer_tools_2.03.04.jar /opt/juicer/CPU/common/juicer_tools.jar
+RUN chmod 666 /opt/juicer/CPU/common/juicer_tools.jar
 RUN ln -s juicer/CPU scripts
 
 # Version number contained in image
