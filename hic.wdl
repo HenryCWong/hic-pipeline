@@ -533,8 +533,8 @@ task dedup {
 
     runtime {
         cpu : "~{num_cpus}"
-        disks: "local-disk 1000 HDD"
-        memory: "16 GB"
+        disks: "local-disk 1500 SSD"
+        memory: "32 GB"
     }
 }
 
@@ -701,7 +701,7 @@ task hiccups{
         cpu : "1"
         bootDiskSizeGb: "20"
         disks: "local-disk 100 SSD"
-        docker: "encodedcc/hic-pipeline:0.1.0_hiccups"
+        docker: "gcr.io/hic-pipeline/new-jar-hiccups:latest"
         gpuType: "nvidia-tesla-p100"
         gpuCount: 1
         memory: "8 GB"
