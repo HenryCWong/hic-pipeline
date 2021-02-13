@@ -565,7 +565,7 @@ task bam2pairs {
 task merge_pairs_file {
     input {
         Array[File] not_merged_pe
-        Int ram_gb = 16
+        Int ram_gb = 32
         Float ram_pct = 0.9
     }
 
@@ -585,7 +585,7 @@ task merge_pairs_file {
 
     runtime {
         cpu : "8"
-        disks: "local-disk 1000 HDD"
+        disks: "local-disk 3000 SSD"
         memory: "~{ram_gb} GB"
     }
 }
