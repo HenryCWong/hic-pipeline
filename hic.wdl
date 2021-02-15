@@ -654,7 +654,7 @@ task create_hic {
     }
 
     runtime {
-        cpu : "1"
+        cpu : "8"
         disks: "local-disk 1000 HDD"
         memory : "64 GB"
     }
