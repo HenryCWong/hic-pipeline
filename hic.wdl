@@ -633,7 +633,8 @@ task create_hic {
         gzip -dc ~{pairs_file} > $MERGED_PAIRS_FILE
         statistics.pl -q ${quality} -o stats_${quality}.txt -s ${restriction_sites} -l "${ligation_site}" $MERGED_PAIRS_FILE
         # If the assembly name is empty, then we write chrsz path into file as usual, otherwise, use the assembly name instead of the path
-        juicer_tools pre \
+        java -Djava.awt.headless=true -Xmx48000m  \
+            -jar /opt/scripts/common/juicer_tools.jar pre \
             -s stats_${quality}.txt \
             -g stats_${quality}_hists.m \
             -q ${quality} \
