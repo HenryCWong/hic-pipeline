@@ -697,7 +697,7 @@ task hiccups{
 
     command {
         set -euo pipefail
-        java -jar -Ddevelopment=false /opt/scripts/common/juicer_tools.jar hiccups --ignore_sparsity ${hic_file} loops
+        java -jar -Ddevelopment=false /opt/scripts/common/juicer_tools.jar hiccups ${hic_file} loops
         gzip -n loops/*.bedpe
     }
 
