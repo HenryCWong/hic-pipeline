@@ -675,12 +675,12 @@ task arrowhead {
             /opt/scripts/common/juicer_tools.jar \
             arrowhead \
             ${hic_file} \
-            contact_domains.bedpe
-        gzip -n contact_domains.bedpe
+            contact_domains
+        gzip -n contact_domains/*
     }
 
     output {
-        File out_file = 'contact_domains.bedpe.gz'
+        File out_file = glob('contact_domains/*.bedpe.gz')[0]
     }
 
     runtime {
