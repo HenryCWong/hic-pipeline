@@ -706,6 +706,14 @@ task hiccups{
         gpuType: "nvidia-tesla-p100"
         gpuCount: 1
         memory: "8 GB"
+        zones: [
+            "us-central1-c",
+            "us-central1-f",
+            "us-east1-b",
+            "us-east1-c",
+            "us-west1-a",
+            "us-west1-b",
+        ]
     }
 }
 
