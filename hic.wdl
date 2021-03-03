@@ -674,6 +674,7 @@ task arrowhead {
             -Xmx16g \
             /opt/scripts/common/juicer_tools.jar \
             arrowhead \
+            -k SCALE \
             ${hic_file} \
             contact_domains
         gzip -n contact_domains/*
@@ -697,7 +698,7 @@ task hiccups{
 
     command {
         set -euo pipefail
-        java -jar -Ddevelopment=false /opt/scripts/common/juicer_tools.jar hiccups ${hic_file} loops
+        java -jar -Ddevelopment=false /opt/scripts/common/juicer_tools.jar hiccups -k SCALE ${hic_file} loops
         gzip -n loops/*.bedpe
     }
 
