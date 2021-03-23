@@ -70,7 +70,7 @@ RUN git clone --branch encode https://github.com/theaidenlab/juicer.git && \
 
 # Install Juicer tools
 ENV JUICER_TOOLS_VERSION=1.22.01
-ADD juicer_tools_2.03.04.jar /opt/juicer/CPU/common/juicer_tools.jar
+ADD juicer_tools.2.04.10.jar /opt/juicer/CPU/common/juicer_tools.jar
 RUN chmod 666 /opt/juicer/CPU/common/juicer_tools.jar && \
     ln -s juicer/CPU scripts
 

@@ -12,9 +12,9 @@
       - path: test-output/alignment_stats.txt
         md5sum: 114926d420451befd6842690467b560d
       - path: test-output/glob-6a31d38462145ec363d0f357468a1d26/inter_1.hic
-        md5sum: af461140dfb44fc1a08866d1a1c0dc48
+        md5sum: 64f742cf67e8e9ebb3f926ceec1316e3
       - path: test-output/glob-6a31d38462145ec363d0f357468a1d26/inter_30.hic
-        md5sum: 6c85500d60cf3f70d71e22a4c497d9ac
+        md5sum: f75a8f36d144ee6bdbb45772ebec64b5
       - path: test-output/library_complexity.json
         md5sum: 64ed2a3f04117f1ee2392ba9ea072f3c
       - path: test-output/merged_nodups.txt.gz
