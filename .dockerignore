@@ -3,4 +3,4 @@
 !hic_pipeline/*.py
 !hic_pipeline/*/
 !Cargo.toml
-!juicer_tools.2.04.10.jar
+!juicer_tools.2.05.04.jar

@@ -625,6 +625,7 @@ task create_hic {
         String quality
         Array[String] normalization_methods = []
         String? assembly_name
+        Int num_cpus = 16
     }
 
     command {
@@ -640,6 +641,7 @@ task create_hic {
             -q ${quality} \
             ~{if defined(assembly_name) then "-y " + assembly_name else ""} \
             ~{if length(normalization_methods) > 0 then "-k" else ""} ~{sep="," normalization_methods} \
+            --threads ~{num_cpus} \
             $MERGED_PAIRS_FILE \
             inter_${quality}.hic \
             ${chrsz_}
@@ -654,7 +656,7 @@ task create_hic {
     }
 
     runtime {
-        cpu : "8"
+        cpu : "~{num_cpus}"
         disks: "local-disk 1000 HDD"
         memory : "128 GB"
     }

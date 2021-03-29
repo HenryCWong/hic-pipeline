@@ -8,20 +8,24 @@ ENV BWA_VERSION=0.7.17
 ENV PAIRIX_VERSION=0.3.6
 ENV SAMTOOLS_VERSION=1.6
 
-RUN apt-get update && apt-get install -y \
-    bzip2 \
-    curl \
-    gawk \
-    gcc \
-    git \
-    libbz2-dev \
-    libz-dev \
-    locales \
-    make \
-    openjdk-8-jdk \
-    python3 \
-    unzip \
-&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:openjdk-r/ppa && \
+    apt-get update && \
+    apt-get install -y \
+        bzip2 \
+        curl \
+        gawk \
+        gcc \
+        git \
+        libbz2-dev \
+        libz-dev \
+        locales \
+        make \
+        openjdk-11-jdk \
+        python3 \
+        unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 # GAWK has the 'and' function, needed for chimeric_blacklist
 RUN echo 'alias awk=gawk' >> ~/.bashrc
@@ -70,7 +74,7 @@ RUN git clone --branch encode https://github.com/theaidenlab/juicer.git && \
 
 # Install Juicer tools
 ENV JUICER_TOOLS_VERSION=1.22.01
-ADD juicer_tools.2.04.10.jar /opt/juicer/CPU/common/juicer_tools.jar
+ADD juicer_tools.2.05.04.jar /opt/juicer/CPU/common/juicer_tools.jar
 RUN chmod 666 /opt/juicer/CPU/common/juicer_tools.jar && \
     ln -s juicer/CPU scripts
 
