@@ -634,10 +634,15 @@ task create_hic {
         gzip -dc ~{pairs_file} > $MERGED_PAIRS_FILE
         statistics.pl -q ${quality} -o stats_${quality}.txt -s ${restriction_sites} -l "${ligation_site}" $MERGED_PAIRS_FILE
         # If the assembly name is empty, then we write chrsz path into file as usual, otherwise, use the assembly name instead of the path
-        java -Djava.awt.headless=true -Xmx120g  \
-            -jar /opt/scripts/common/juicer_tools.jar pre \
+        java \
+            -Djava.awt.headless=true \
+            -Xmx120g \
+            -jar /opt/scripts/common/juicer_tools.jar \
+            pre \
+            -n \
             -s stats_${quality}.txt \
             -g stats_${quality}_hists.m \
+            -r 2500000,1000000,500000,250000,100000,50000,25000,10000,5000,2000,1000,500,200,100 \
             -q ${quality} \
             ~{if defined(assembly_name) then "-y " + assembly_name else ""} \
             ~{if length(normalization_methods) > 0 then "-k" else ""} ~{sep="," normalization_methods} \
@@ -645,6 +650,13 @@ task create_hic {
             $MERGED_PAIRS_FILE \
             inter_${quality}.hic \
             ${chrsz_}
+        java \
+            -Djava.awt.headless=true \
+            -Xmx120g \
+            -jar /opt/scripts/common/juicer_tools.jar \
+            addNorm \
+            --threads ~{num_cpus} \
+            inter_~{quality}.hic
         python3 $(which jsonify_stats.py) --alignment-stats stats_${quality}.txt
     }
 
