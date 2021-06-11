@@ -1,0 +1,19 @@
+{
+  "hic.assembly_name": "hg38",
+  "hic.chrsz": "/storage1/fs1/dspencer/Active/wongh/hg38/hg38.sizes.tsv",
+  "hic.fastq": [
+    [
+      {
+        "read_1": "/storage1/fs1/dspencer/Active/wongh/sequences/Spencer_O624_HiC_RG_020221_IDT_10nt_UDI_i7_102_IDT_10nt_UDI_i5_293_AACCTAGTGC_TTCAGTATCG_S22_L001_R1_001.fastq.gz",
+        "read_2": "/storage1/fs1/dspencer/Active/wongh/sequences/Spencer_O624_HiC_RG_020221_IDT_10nt_UDI_i7_102_IDT_10nt_UDI_i5_293_AACCTAGTGC_TTCAGTATCG_S22_L001_R2_001.fastq.gz"
+      }
+    ]
+  ],
+  "hic.no_call_loops": true,
+  "hic.no_call_tads": true,
+  "hic.reference_index": "/storage1/fs1/dspencer/Active/wongh/indexes3/all_sequences.tar.gz",
+  "hic.restriction_enzymes": [
+    "MboI"
+  ],
+  "hic.restriction_sites": "/storage1/fs1/dspencer/Active/wongh/hg38/hg38_MboI.txt"
+}

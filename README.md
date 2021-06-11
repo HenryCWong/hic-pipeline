@@ -8,6 +8,9 @@
 
 The [ENCODE](https://www.encodeproject.org/) pipeline for processing Hi-C data based on [Juicer](https://github.com/aidenlab/juicer)
 
+This is a fork of the encodedcc/hic-pipeline to work on Washington University at St. Louis's Compute 1 Cluster.
+Maintained by Henry C. Wong (wongh@wustl.edu,cywongx@gmail.com,henrycwong@mst.edu). 
+
 ## Installation
 
 1. Git clone this pipeline.
@@ -15,13 +18,20 @@ The [ENCODE](https://www.encodeproject.org/) pipeline for processing Hi-C data b
     $ git clone https://github.com/ENCODE-DCC/hic-pipeline
     ```
 
-2. Install [Caper](https://github.com/ENCODE-DCC/caper), requires `java` >= 1.8 and `python` >= 3.6, Caper >= 0.8.2.1 is required to run the pipeline. Caper is a Python wrapper for [Cromwell](https://github.com/broadinstitute/cromwell).
-    ```bash
-    $ pip install caper  # use pip3 if it doesn't work
-    ```
+2. Run an interactive session on the compute cluster using a docker container that contains caper, java, and python. Feel free to use mine (henrycwong/pipeline). 
+   ```bash
+      LSF_DOCKER_VOLUMES="${YOUR_PATHS_HERE}:${YOUR_PATHS_ERE}" bsub -G compute-group -q queue-group -a "docker(henrycwong/pipeline)" /bin/sh
+   ```
+   
 
 3. Follow [Caper's README](https://github.com/ENCODE-DCC/caper) carefully to configure it for your platform (local, cloud, cluster, etc.)
 > **IMPORTANT**: Configure your Caper configuration file `~/.caper/default.conf` correctly for your platform.
+
+   ```bash
+      caper init pbs
+   ```
+   We're not using pbs, but we're using the way the caper calls pbs to run on an LSF server. If you don't know what any of that means, don't worry about it. 
+   After the init command you will want to add a path for caper to store the pipeline's output. 
 
 ## Usage
 
@@ -30,7 +40,7 @@ To verify your installation, you can run the following pipeline with a test data
 > Note: this will incur some cost when running in cloud environments.
 
 ```bash
-$ caper run hic.wdl -i tests/functional/json/test_hic.json --docker
+$ caper run hic.wdl -i tests/functional/json/test_hic.json --backend-file lsf.backend.conf
 ```
 
 For detailed usage, see [usage](docs/usage.md)
