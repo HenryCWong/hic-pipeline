@@ -20,18 +20,52 @@ Maintained by Henry C. Wong (wongh@wustl.edu,cywongx@gmail.com,henrycwong@mst.ed
 
 2. Run an interactive session on the compute cluster using a docker container that contains caper, java, and python. Feel free to use mine (henrycwong/pipeline). 
    ```bash
-      LSF_DOCKER_VOLUMES="${YOUR_PATHS_HERE}:${YOUR_PATHS_ERE}" bsub -G compute-group -q queue-group -a "docker(henrycwong/pipeline)" /bin/sh
+      LSF_DOCKER_VOLUMES="${YOUR_PATHS_HERE}:${YOUR_PATHS_HERE}" bsub -G compute-group -q queue-group -a "docker(henrycwong/pipeline)" /bin/sh
    ```
    
 
 3. Follow [Caper's README](https://github.com/ENCODE-DCC/caper) carefully to configure it for your platform (local, cloud, cluster, etc.)
 > **IMPORTANT**: Configure your Caper configuration file `~/.caper/default.conf` correctly for your platform.
 
+   If you're too lazy to read the Caper README just follow these steps.
+   1.
    ```bash
       caper init pbs
    ```
    We're not using pbs, but we're using the way the caper calls pbs to run on an LSF server. If you don't know what any of that means, don't worry about it. 
-   After the init command you will want to add a path for caper to store the pipeline's output. 
+   
+   2. After the init command you will want to add a path for caper to store the pipeline's output. You do this by directly editing the `~/.caper/default.conf` file. If you are using my docker container (henrycwong/pipeline) vim will be installed, so you can easily do: 
+    ```bash
+      vim ~/.caper/default.conf
+    ```
+    The caper file will look like this 
+    ```
+    backend=pbs
+
+    # Hashing strategy for call-caching (3 choices)
+    # This parameter is for local (local/slurm/sge/pbs) backend only.
+    # This is important for call-caching,
+    # which means re-using outputs from previous/failed workflows.
+    # Cache will miss if different strategy is used.
+    # "file" method has been default for all old versions of Caper<1.0.
+    # "path+modtime" is a new default for Caper>=1.0,
+    #   file: use md5sum hash (slow).
+    #   path: use path.
+    #   path+modtime: use path and modification time.
+    local-hash-strat=path+modtime
+
+    # Local directory for localized files and Cromwell's intermediate files
+    # If not defined, Caper will make .caper_tmp/ on local-out-dir or CWD.
+    # /tmp is not recommended here since Caper store all localized data files
+    # on this directory (e.g. input FASTQs defined as URLs in input JSON).
+    local-loc-dir=/storage1/fs1/dspencer/Active/wongh/hic2/outputs/
+
+    cromwell=/home/wongh/.caper/cromwell_jar/cromwell-59.jar
+    womtool=/home/wongh/.caper/womtool_jar/womtool-59.jar
+
+    ```
+    Press 'i' to go into input mode, go down to `local-loc-dir=` and fill in a path where you want your output to go.
+    Then to exit vim press 'esc', then ':', then 'wq', and finally press enter (or return). 
 
 ## Usage
 
