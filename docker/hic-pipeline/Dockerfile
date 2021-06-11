@@ -1,7 +1,7 @@
 FROM ubuntu:16.04@sha256:e9938f45e51d9ff46e2b05a62e0546d0f07489b7f22fbc5288defe760599e38a as main
 
-LABEL maintainer "Paul Sud"
-LABEL maintainer.email "encode-help@lists.stanford.edu"
+LABEL maintainer "Henry C. Wong"
+LABEL maintainer.email "wongh@wustl.edu"
 
 # Package versions
 ENV BWA_VERSION=0.7.17
@@ -44,6 +44,16 @@ RUN curl -OL "https://github.com/lh3/bwa/archive/v${BWA_VERSION}.zip" && \
     cd .. && \
     rm -rf "bwa-v${BWA_VERSION}"
 
+#COPY bwa-mem2-2.0pre2_x64-linux bwa-mem2-2.0pre2_x64-linux
+#COPY bwa-mem2 bwa-mem2
+#RUN cp bwa-mem2-2.0pre2_x64-linux/bwa-mem2 /usr/local/bin
+RUN curl -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.0pre2/bwa-mem2-2.0pre2_x64-linux.tar.bz2 | \
+tar jxf - && \
+mv bwa-mem2-2.0pre2_x64-linux/bwa-mem2* /usr/local/bin \
+&& rm -rf bwa*
+
+
+
 # Install Samtools
 RUN curl -OL "https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2" && \
     bunzip2 "samtools-${SAMTOOLS_VERSION}.tar.bz2" && \
@@ -61,7 +71,7 @@ RUN curl -OL "https://github.com/4dn-dcic/pairix/archive/${PAIRIX_VERSION}.zip" 
     cd "pairix-${PAIRIX_VERSION}/" && \
     make && \
     cp bin/pairix bin/bgzip /usr/local/bin && \
-    cp util/bam2pairs/bam2pairs /opt && \
+    cp util/bam2pairs/bam2pairs /usr/local/bin && \
     cd .. && \
     rm -rf "${PAIRIX_VERSION}.zip" "pairix-${PAIRIX_VERSION}"
 
@@ -87,3 +97,4 @@ ENV PATH=/opt:/opt/scripts:/opt/scripts/common:/opt/juicer/misc:$PATH
 RUN mkdir -p hic-pipeline/hic_pipeline
 COPY hic_pipeline hic-pipeline/hic_pipeline/
 ENV PATH="/opt/hic-pipeline/hic_pipeline:${PATH}"
+
